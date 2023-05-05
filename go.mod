@@ -1,4 +1,4 @@
-module unikey-starcraft
+module github.com/dgurney/unikey-starcraft
 
 go 1.20
 
