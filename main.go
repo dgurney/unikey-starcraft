@@ -24,7 +24,7 @@ import (
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const version = "0.5.4"
+const version = "0.5.5"
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
