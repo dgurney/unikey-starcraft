@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/dgurney/unikey/generator"
+	"github.com/dgurney/unikey/validator"
 )
 
 /*
@@ -23,7 +24,7 @@ import (
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-const version = "0.5.1"
+const version = "0.5.4"
 
 func init() {
 	rand.Seed(time.Now().UnixNano())
@@ -34,6 +35,7 @@ func main() {
 	ver := flag.Bool("ver", false, "Show version information and exit.")
 	t := flag.Bool("t", false, "Show elapsed time")
 	repeat := flag.Int("r", 1, "Repeat N times")
+	validate := flag.String("v", "", "Validate a key.")
 	flag.Parse()
 
 	if *ver {
@@ -53,6 +55,18 @@ func main() {
 	var started time.Time
 	if *t {
 		started = time.Now()
+	}
+
+	if *validate != "" {
+		k := validator.StarCraft{Key: *validate}
+		err := k.Validate()
+		switch {
+		case err != nil:
+			fmt.Printf("%s is invalid: %s\n", *validate, err)
+		default:
+			fmt.Printf("%s is valid\n", *validate)
+		}
+		return
 	}
 
 	for i := 0; i < *repeat; i++ {
